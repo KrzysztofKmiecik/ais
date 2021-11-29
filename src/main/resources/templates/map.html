@@ -4,54 +4,78 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin=""></script>
 
-    <style>#map { height: 1080px; }</style>
+    <style>#map {
+        height: 1080px;
+    }</style>
 </head>
 <body>
 
-    <div id="map"></div>
+<div id="map"></div>
 
 <script th:inline="javascript">
 
-    var map = L.map('map').setView([52.95, 19.23], 13);
+    var map = L.map('map').setView([63.62, 10.13], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     var tracks = [[${tracks}]];
+    var shipIcon = L.icon({
+        iconUrl: 'http://www.clipartbest.com/cliparts/dT6/Xaz/dT6Xazx8c.png',
+        iconSize: [38, 95],
+        iconAnchor: [22, 80],
+
+    })
 
     tracks.forEach(value => {
         var polygon;
-        L.marker([value.x, value.y]).addTo(map)
-            .bindPopup(value.name)
-            .openPopup()
+        var xPos = value.x;
+        var yPos = value.y;
+        L.circle([xPos, yPos], {
+            color: 'red',
+            fillColor: 'rgba(255,0,51,0.09)',
+            fillOpacity: 0.5,
+            radius: 500
+        }).addTo(map);
+        L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
+        L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
+        L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
+
+       /* var xA=xPos + 0.04;
+        var xB=xPos + 0.04;
+        var yA=xPos + 0.05;
+        var yB=xPos + 0.07;
+
+        var a=(yA-YB)/(xA-xB);
+        var b=(yA-((yA-yB)/(xA-xB))*xA);
+        var x=0.05;
+        var y=a*x+b;
+        L.polygon([[xPos + 0.04, yPos + 0.07], [x, y],]).addTo(map)*/
+
+        var marker = L.marker([xPos, yPos], {icon: shipIcon,}).addTo(map)
             .on('mouseover', () => {
+                marker.bindPopup(value.name).openPopup();
                 polygon = L.polygon([
                     [value.x, value.y],
                     [value.destinationX, value.destinationY],
                 ]).addTo(map);
+
             })
             .on('mouseout', () => {
                 map.removeLayer(polygon);
-            })
-
-        ;
-
+            });
 
 
     })
-
-
-
-
 
 
 </script>

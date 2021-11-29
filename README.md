@@ -32,6 +32,9 @@ Możesz w pełni wykorzystać kod źródłowy opracowany w trakcie LiveStrema w 
 * * https://www.barentswatch.no/en/about/open-data-via-barentswatch/
 * * https://www.barentswatch.no/minside/
 
+
+Marker rotation -> needs to have  -> npm install leaflet-marker-rotation
+
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.6.0/maven-plugin/reference/html/)
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.6.0/maven-plugin/reference/html/#build-image)
@@ -51,3 +54,4 @@ The following guides illustrate how to use some features concretely:
 * [Accessing Relational Data using JDBC with Spring](https://spring.io/guides/gs/relational-data-access/)
 * [Managing Transactions](https://spring.io/guides/gs/managing-transactions/)
 
+  
