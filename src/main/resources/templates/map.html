@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin=""/>
@@ -19,6 +20,8 @@
 <body>
 
 <div id="map"></div>
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
 
 <script th:inline="javascript">
 
@@ -28,60 +31,33 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var tracks = [[${tracks}]];
-    var shipIcon = L.icon({
-        iconUrl: 'http://www.clipartbest.com/cliparts/dT6/Xaz/dT6Xazx8c.png',
-        iconSize: [38, 95],
-        iconAnchor: [22, 80],
+    // Set up the OSM layer
+/*    mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+    L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; ' + mapLink + ' Contributors',
+        maxZoom: 18,
+    }).addTo(map);*/
 
-    })
+    // Initialise the FeatureGroup to store editable layers
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
 
-    tracks.forEach(value => {
-        var polygon;
-        var xPos = value.x;
-        var yPos = value.y;
-        L.circle([xPos, yPos], {
-            color: 'red',
-            fillColor: 'rgba(255,0,51,0.09)',
-            fillOpacity: 0.5,
-            radius: value.visibilityInKm
-        }).addTo(map);
-        L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
-        L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
-        L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    var drawControl = new L.Control.Draw({
+        edit: {
+            featureGroup: drawnItems
+        }
+    });
+    map.addControl(drawControl);
+    map.on('draw:created', function (e) {
+        var type = e.layerType,
+            layer = e.layer;
+        if (type === 'marker') {
+            layer.bindPopup('A popup!');
+        }
+        drawnItems.addLayer(layer);
+    });
 
-        /* var xA=xPos + 0.04;
-         var xB=xPos + 0.04;
-         var yA=xPos + 0.05;
-         var yB=xPos + 0.07;
-
-         var a=(yA-YB)/(xA-xB);
-         var b=(yA-((yA-yB)/(xA-xB))*xA);
-         var x=0.05;
-         var y=a*x+b;
-         L.polygon([[xPos + 0.04, yPos + 0.07], [x, y],]).addTo(map)*/
-
-        var marker = L.marker([xPos, yPos], {icon: shipIcon,}).addTo(map)
-            .on('mouseover', () => {
-                marker.bindPopup("<b>Name</b>:" + value.name
-                    + "<br> <b>Visibility[km]</b>:" + value.visibilityInKm
-                    + "<br> <b>PosX:</b>" + value.x
-                    + "<br> <b>PosY:</b>" + value.y
-                    + "<br> <b>DestinationX:</b>" + value.destinationX
-                    + "<br> <b>DestinationY:</b>" + value.destinationY
-                ).openPopup();
-                polygon = L.polygon([
-                    [value.x, value.y],
-                    [value.destinationX, value.destinationY],
-                ]).addTo(map);
-
-            })
-            .on('mouseout', () => {
-                map.removeLayer(polygon);
-            });
-
-
-    })
 
 
 </script>
