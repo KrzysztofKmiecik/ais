@@ -1,5 +1,10 @@
 package pl.kmiecik.ais.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
 public class Point {
 
     private double y;
@@ -7,52 +12,7 @@ public class Point {
     private String name;
     private double destinationY;
     private double destinationX;
+    private int visibilityInKm;
 
-    public Point(double y, double x, String name, double destinationY, double destinationX) {
-        this.y = y;
-        this.x = x;
-        this.name = name;
-        this.destinationY = destinationY;
-        this.destinationX = destinationX;
-    }
 
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getDestinationY() {
-        return destinationY;
-    }
-
-    public void setDestinationY(double destinationY) {
-        this.destinationY = destinationY;
-    }
-
-    public double getDestinationX() {
-        return destinationX;
-    }
-
-    public void setDestinationX(double destinationX) {
-        this.destinationX = destinationX;
-    }
 }

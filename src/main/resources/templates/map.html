@@ -44,26 +44,32 @@
             color: 'red',
             fillColor: 'rgba(255,0,51,0.09)',
             fillOpacity: 0.5,
-            radius: 500
+            radius: value.visibilityInKm
         }).addTo(map);
         L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
         L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
         L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
 
-       /* var xA=xPos + 0.04;
-        var xB=xPos + 0.04;
-        var yA=xPos + 0.05;
-        var yB=xPos + 0.07;
+        /* var xA=xPos + 0.04;
+         var xB=xPos + 0.04;
+         var yA=xPos + 0.05;
+         var yB=xPos + 0.07;
 
-        var a=(yA-YB)/(xA-xB);
-        var b=(yA-((yA-yB)/(xA-xB))*xA);
-        var x=0.05;
-        var y=a*x+b;
-        L.polygon([[xPos + 0.04, yPos + 0.07], [x, y],]).addTo(map)*/
+         var a=(yA-YB)/(xA-xB);
+         var b=(yA-((yA-yB)/(xA-xB))*xA);
+         var x=0.05;
+         var y=a*x+b;
+         L.polygon([[xPos + 0.04, yPos + 0.07], [x, y],]).addTo(map)*/
 
         var marker = L.marker([xPos, yPos], {icon: shipIcon,}).addTo(map)
             .on('mouseover', () => {
-                marker.bindPopup(value.name).openPopup();
+                marker.bindPopup("<b>Name</b>:" + value.name
+                    + "<br> <b>Visibility[km]</b>:" + value.visibilityInKm
+                    + "<br> <b>PosX:</b>" + value.x
+                    + "<br> <b>PosY:</b>" + value.y
+                    + "<br> <b>DestinationX:</b>" + value.destinationX
+                    + "<br> <b>DestinationY:</b>" + value.destinationY
+                ).openPopup();
                 polygon = L.polygon([
                     [value.x, value.y],
                     [value.destinationX, value.destinationY],

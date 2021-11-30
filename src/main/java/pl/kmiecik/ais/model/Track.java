@@ -79,6 +79,12 @@ public class Track {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+
+
+
+
+
+
     @JsonProperty("timeStamp")
     public String getTimeStamp() {
         return timeStamp;

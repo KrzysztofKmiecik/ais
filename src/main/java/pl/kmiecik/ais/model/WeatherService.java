@@ -7,50 +7,51 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.kmiecik.ais.model.weather.Example;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
 public class WeatherService {
+
     RestTemplate restTemplate = new RestTemplate();
 
 
-    public List<Point> getTracks() {
+    private final static String WEATHER_URL = "https://api.stormglass.io/v2/weather/point?";
+    private final static String API = "fdc51ec6-5078-11ec-962b-0242ac130002-fdc51f66-5078-11ec-962b-0242ac130002";
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization",
-                "Bearer fdc51ec6-5078-11ec-962b-0242ac130002-fdc51f66-5078-11ec-962b-0242ac130002");
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://api.stormglass.io/v2/weather/point?lat=54&lng=18&params=visibility",
-                HttpMethod.GET,
-                httpEntity,
-                Track[].class);
+    public Double getVisibility(final Double lat, final Double lon) {
+        Double visibility;
+        if (false) {
+            visibility = null;
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization",
+                    "fdc51ec6-5078-11ec-962b-0242ac130002-fdc51f66-5078-11ec-962b-0242ac130002");
+            HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-        List<Point> collect = Stream.of(exchange.getBody()).map(
-                track -> new Point(
-                        track.getGeometry().getCoordinates().get(0),
-                        track.getGeometry().getCoordinates().get(1),
-                        track.getName(),
-                        getDestination(track.getDestination(), track.getGeometry().getCoordinates()).getLongitude(),
-                        getDestination(track.getDestination(), track.getGeometry().getCoordinates()).getLatitude()
-                )
-        ).collect(Collectors.toList());
-        return collect;
+            ResponseEntity<Example> exchange = restTemplate.exchange("https://api.stormglass.io/v2/weather/point?lat=" + lat + "&lng=" + lon + "&params=visibility",
+                    HttpMethod.GET,
+                    httpEntity,
+                    Example.class);
+            visibility=exchange.getBody().getHours().get(0).getVisibility().getNoaa();
+        } else {
+            double min=0.01;
+            double max=50.03;
+            visibility=min+Math.random()*(max-min+1);
+        }
+        return visibility;
     }
 
-    public Datum getDestination(String destinationName, List<Double> coordinates) {
-        try {
-            String url = "http://api.positionstack.com/v1/forward?access_key=f9aae45e031a1e66eac64db90ffda427&query=" + destinationName;
-            JsonNode data = restTemplate.getForObject(url, JsonNode.class).get("data").get(0);
-            double latitude = data.get("latitude").asDouble();
-            double longitude = data.get("longitude").asDouble();
-            return new Datum(latitude, longitude);
 
-        } catch (Exception ex) {
-            return new Datum(coordinates.get(1), coordinates.get(0));
-        }
+    private Optional<Double> getVisibilityFromRestApi(final String url, final Double lat, final Double lon) {
+        Optional<JsonNode> jsonNode = Stream.of(restTemplate.getForObject(
+                url.concat("lat=").concat(String.valueOf(lat)).concat("&lng=").concat(String.valueOf(lon)).concat("&params=visibility"), JsonNode.class)).findFirst();
+
+        return jsonNode.map(node -> {
+            double v = node.get("hours").get(0).get("visibility").get("noaa").asDouble();
+            return v;
+        });
     }
 }
