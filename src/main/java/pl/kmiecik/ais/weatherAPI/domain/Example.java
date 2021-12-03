@@ -1,7 +1,9 @@
 
-package pl.kmiecik.ais.model.weather;
+package pl.kmiecik.ais.weatherAPI.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import pl.kmiecik.ais.weatherAPI.domain.Hour;
+import pl.kmiecik.ais.weatherAPI.domain.Meta;
 
 import javax.annotation.Generated;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package pl.kmiecik.ais.model;
+package pl.kmiecik.ais.Config;
 
 import java.util.NoSuchElementException;
 

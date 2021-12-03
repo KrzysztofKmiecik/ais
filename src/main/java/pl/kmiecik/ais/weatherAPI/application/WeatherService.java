@@ -1,4 +1,4 @@
-package pl.kmiecik.ais.model;
+package pl.kmiecik.ais.weatherAPI.application;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.HttpEntity;
@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import pl.kmiecik.ais.model.weather.Example;
+import pl.kmiecik.ais.weatherAPI.domain.Example;
 
 import java.util.Optional;
 import java.util.stream.Stream;

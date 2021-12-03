@@ -1,45 +1,34 @@
 
-package pl.kmiecik.ais.model.weather;
+package pl.kmiecik.ais.positionAPI.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import pl.kmiecik.ais.positionAPI.domain.Datum;
 
 import javax.annotation.Generated;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "time",
-    "visibility"
+    "data"
 })
 @Generated("jsonschema2pojo")
-public class Hour {
+public class Destination {
 
-    @JsonProperty("time")
-    private String time;
-    @JsonProperty("visibility")
-    private Visibility visibility;
+    @JsonProperty("data")
+    private List<Datum> data = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("time")
-    public String getTime() {
-        return time;
+    @JsonProperty("data")
+    public List<Datum> getData() {
+        return data;
     }
 
-    @JsonProperty("time")
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    @JsonProperty("visibility")
-    public Visibility getVisibility() {
-        return visibility;
-    }
-
-    @JsonProperty("visibility")
-    public void setVisibility(Visibility visibility) {
-        this.visibility = visibility;
+    @JsonProperty("data")
+    public void setData(List<Datum> data) {
+        this.data = data;
     }
 
     @JsonAnyGetter

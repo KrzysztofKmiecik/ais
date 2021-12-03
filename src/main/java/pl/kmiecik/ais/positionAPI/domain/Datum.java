@@ -1,5 +1,5 @@
 
-package pl.kmiecik.ais.model;
+package pl.kmiecik.ais.positionAPI.domain;
 
 import com.fasterxml.jackson.annotation.*;
 

@@ -10,4 +10,6 @@ public class AisApplication {
         SpringApplication.run(AisApplication.class, args);
     }
 
+
+
 }

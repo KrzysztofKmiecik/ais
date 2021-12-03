@@ -1,4 +1,4 @@
-package pl.kmiecik.ais.model;
+package pl.kmiecik.ais.ship.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

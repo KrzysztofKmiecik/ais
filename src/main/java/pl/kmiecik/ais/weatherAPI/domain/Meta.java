@@ -1,5 +1,5 @@
 
-package pl.kmiecik.ais.model.weather;
+package pl.kmiecik.ais.weatherAPI.domain;
 
 import com.fasterxml.jackson.annotation.*;
 

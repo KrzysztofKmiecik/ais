@@ -1,0 +1,38 @@
+package pl.kmiecik.ais.ship.domain;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Data
+@NoArgsConstructor
+@Table(name = "ships")
+public
+class ShipEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "pos_y")
+    private double y;
+    @Column(name = "pos_x")
+    private double x;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "destination_pos_x")
+    private double destinationY;
+    @Column(name = "destination_pos_y")
+    private double destinationX;
+    @Column(name = "visibility_km")
+    private int visibilityInKm;
+
+    public ShipEntity(double y, double x, String name, double destinationY, double destinationX, int visibilityInKm) {
+        this.y = y;
+        this.x = x;
+        this.name = name;
+        this.destinationY = destinationY;
+        this.destinationX = destinationX;
+        this.visibilityInKm = visibilityInKm;
+    }
+}

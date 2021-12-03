@@ -1,7 +1,8 @@
 
-package pl.kmiecik.ais.model;
+package pl.kmiecik.ais.positionAPI.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import pl.kmiecik.ais.positionAPI.domain.Geometry;
 
 import javax.annotation.Generated;
 import java.util.HashMap;
