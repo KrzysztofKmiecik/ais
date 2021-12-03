@@ -12,6 +12,7 @@ import pl.kmiecik.ais.positionAPI.domain.Datum;
 import pl.kmiecik.ais.ship.application.port.ShipService;
 import pl.kmiecik.ais.ship.domain.Ship;
 import pl.kmiecik.ais.positionAPI.domain.Track;
+import pl.kmiecik.ais.ship.domain.ShipStatus;
 import pl.kmiecik.ais.weatherAPI.application.WeatherService;
 import pl.kmiecik.ais.ship.domain.ShipEntity;
 import pl.kmiecik.ais.ship.domain.ShipRepository;
@@ -46,6 +47,7 @@ public class ShipServiceUseCase implements ShipService {
                         track.getGeometry().getCoordinates().get(0),
                         track.getGeometry().getCoordinates().get(1),
                         track.getName(),
+                        ShipStatus.ENEMY,
                         getDestination(track.getDestination(), track.getGeometry().getCoordinates()).getLongitude(),
                         getDestination(track.getDestination(), track.getGeometry().getCoordinates()).getLatitude(),
                         weatherService.getVisibility(track.getGeometry().getCoordinates().get(0), track.getGeometry().getCoordinates().get(1)).intValue()

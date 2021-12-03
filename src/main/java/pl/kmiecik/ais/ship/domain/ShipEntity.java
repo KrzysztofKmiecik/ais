@@ -20,6 +20,9 @@ class ShipEntity {
     private double x;
     @Column(name = "name")
     private String name;
+    @Column(name="ship_status")
+    @Enumerated(value = EnumType.STRING)
+    private ShipStatus shipStatus;
     @Column(name = "destination_pos_x")
     private double destinationY;
     @Column(name = "destination_pos_y")
@@ -27,10 +30,11 @@ class ShipEntity {
     @Column(name = "visibility_km")
     private int visibilityInKm;
 
-    public ShipEntity(double y, double x, String name, double destinationY, double destinationX, int visibilityInKm) {
+    public ShipEntity(double y, double x, String name, ShipStatus shipStatus, double destinationY, double destinationX, int visibilityInKm) {
         this.y = y;
         this.x = x;
         this.name = name;
+        this.shipStatus = shipStatus;
         this.destinationY = destinationY;
         this.destinationX = destinationX;
         this.visibilityInKm = visibilityInKm;
