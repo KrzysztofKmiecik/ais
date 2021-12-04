@@ -79,85 +79,85 @@
             radius: value.visibilityInKm
         }).addTo(map);
 
-        L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
-        L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
-        L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
+        L.polygon([[xPos + 0.00, yPos + 0.00], [value.lastPosition.x + 0.02, value.lastPosition.y + 0.02],]).addTo(map)
+
+
         var myIcon;
-        if(value.shipStatus=='FRIEND'){
-            myIcon=friendShipIcon;
-        }else{
-            myIcon=badShipIcon;
+        if (value.shipStatus == 'FRIEND') {
+            myIcon = friendShipIcon;
+        } else {
+            myIcon = badShipIcon;
         }
 
         var marker = L.marker([xPos, yPos], {icon: myIcon,}).addTo(map)
 
-                .on('mouseover', () => {
-                    marker.bindPopup("<b>Name</b>:" + value.name
-                        + "<br> <b>STATUS</b>:" + value.shipStatus
-                        + "<br> <b>Visibility[km]</b>:" + value.visibilityInKm
-                        + "<br> <b>PosX:</b>" + value.x
-                        + "<br> <b>PosY:</b>" + value.y
-                        + "<br> <b>DestinationX:</b>" + value.destinationX
-                        + "<br> <b>DestinationY:</b>" + value.destinationY
-                    ).openPopup();
-                    polygon = L.polygon([
-                        [value.x, value.y],
-                        [value.destinationX, value.destinationY],
-                    ]).addTo(map);
-                })
-                .on('mouseout', () => {
-                    map.removeLayer(polygon);
-                })
+            .on('mouseover', () => {
+                marker.bindPopup("<b>Name</b>:" + value.name
+                    + "<br> <b>STATUS</b>:" + value.shipStatus
+                    + "<br> <b>Visibility[km]</b>:" + value.visibilityInKm
+                    + "<br> <b>PosX:</b>" + value.x
+                    + "<br> <b>PosY:</b>" + value.y
+                    + "<br> <b>DestinationX:</b>" + value.destinationX
+                    + "<br> <b>DestinationY:</b>" + value.destinationY
+                ).openPopup();
+                polygon = L.polygon([
+                    [value.x, value.y],
+                    [value.destinationX, value.destinationY],
+                ]).addTo(map);
+            })
+            .on('mouseout', () => {
+                map.removeLayer(polygon);
+            })
 
-                .on('click', () => {
-                    marker.setIcon(friendShipIcon);
-                    value.shipStatus='FRIEND';
-                    var form_data = new FormData();
-                    form_data.append('y', value.y);
-                    form_data.append('x', value.x);
-                    form_data.append('name', value.name);
-                    form_data.append('shipStatus', 'FRIEND');
-                    form_data.append('destinationY', value.destinationY);
-                    form_data.append('destinationX', value.destinationX);
-                    form_data.append('visibilityInKm', value.visibilityInKm);
-
-
-                    $.ajax({
-                        url: serverContext + 'update',
-                        data: form_data,
-                        processData: false,
-                        contentType: false,
-                        type: 'POST',
-                        success: function (data) {
-                            console.log(data)
-                        }
-                    });
-
-                })
-                .on('dblclick', () => {
-                    marker.setIcon(badShipIcon);
-                    value.shipStatus='ENEMY';
-                    var form_data = new FormData();
-                    form_data.append('y', value.y);
-                    form_data.append('x', value.x);
-                    form_data.append('name', value.name);
-                    form_data.append('shipStatus', 'ENEMY');
-                    form_data.append('destinationY', value.destinationY);
-                    form_data.append('destinationX', value.destinationX);
-                    form_data.append('visibilityInKm', value.visibilityInKm);
+            .on('click', () => {
+                marker.setIcon(friendShipIcon);
+                value.shipStatus = 'FRIEND';
+                var form_data = new FormData();
+                form_data.append('y', value.y);
+                form_data.append('x', value.x);
+                form_data.append('name', value.name);
+                form_data.append('shipStatus', 'FRIEND');
+                form_data.append('destinationY', value.destinationY);
+                form_data.append('destinationX', value.destinationX);
+                form_data.append('visibilityInKm', value.visibilityInKm);
 
 
-                    $.ajax({
-                        url: serverContext + 'update',
-                        data: form_data,
-                        processData: false,
-                        contentType: false,
-                        type: 'POST',
-                        success: function (data) {
-                            console.log(data)
-                        }
-                    });
-                })
+                $.ajax({
+                    url: serverContext + 'update',
+                    data: form_data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function (data) {
+                        console.log(data)
+                    }
+                });
+
+            })
+            .on('dblclick', () => {
+                marker.setIcon(badShipIcon);
+                value.shipStatus = 'ENEMY';
+                var form_data = new FormData();
+                form_data.append('y', value.y);
+                form_data.append('x', value.x);
+                form_data.append('name', value.name);
+                form_data.append('shipStatus', 'ENEMY');
+                form_data.append('destinationY', value.destinationY);
+                form_data.append('destinationX', value.destinationX);
+                form_data.append('visibilityInKm', value.visibilityInKm);
+
+
+                $.ajax({
+                    url: serverContext + 'update',
+                    data: form_data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function (data) {
+                        console.log(data)
+                    }
+                });
+            })
 
 
     })

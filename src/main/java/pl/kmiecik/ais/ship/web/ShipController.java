@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.kmiecik.ais.ship.application.port.ShipService;
+import pl.kmiecik.ais.ship.domain.PositionCoordinate;
 import pl.kmiecik.ais.ship.domain.Ship;
+import pl.kmiecik.ais.ship.domain.Ship2;
+import pl.kmiecik.ais.ship.domain.ShipStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -31,7 +36,16 @@ public class ShipController {
         System.out.println("Pobranie ");
         List<Ship> ships = shipService.updateShipPosition();
         shipService.saveShips(ships);
-        List<Ship> tracks = shipService.getShips();
+        List<Ship> tracks2 = shipService.getShips();
+        PositionCoordinate p1=new PositionCoordinate(10.131, 64.711);
+        PositionCoordinate p2=new PositionCoordinate(10.132, 64.712);
+        PositionCoordinate p3=new PositionCoordinate(10.133, 64.713);
+
+        List<Ship2> tracks = new ArrayList<>();
+        Ship2 s1 = new Ship2( 10.131, 64.711,"Ola", ShipStatus.FRIEND, 14, 70, 10,p2);
+
+        tracks.add(s1);
+
         model.addAttribute("tracks", tracks);
         return "map";
     }
