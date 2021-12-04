@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!--   <meta http-equiv="refresh" content="30"> -->
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -13,8 +18,11 @@
             crossorigin=""></script>
 
     <!-- ruller !-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.css" integrity="sha384-P9DABSdtEY/XDbEInD3q+PlL+BjqPCXGcF8EkhtKSfSTr/dS5PBKa9+/PMkW2xsY" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.js" integrity="sha384-N2S8y7hRzXUPiepaSiUvBH1ZZ7Tc/ZfchhbPdvOE5v3aBBCIepq9l+dBJPFdo1ZJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.css"
+          integrity="sha384-P9DABSdtEY/XDbEInD3q+PlL+BjqPCXGcF8EkhtKSfSTr/dS5PBKa9+/PMkW2xsY" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/gokertanrisever/leaflet-ruler@master/src/leaflet-ruler.js"
+            integrity="sha384-N2S8y7hRzXUPiepaSiUvBH1ZZ7Tc/ZfchhbPdvOE5v3aBBCIepq9l+dBJPFdo1ZJ"
+            crossorigin="anonymous"></script>
 
     <style>#map {
         height: 1080px;
@@ -25,15 +33,17 @@
 <div id="map"></div>
 
 
-
 <script th:inline="javascript">
+    /*<![CDATA[*/
+    let serverContext = /*[[@{/}]]*/
+    /*]]>*/
 
-    var map = L.map('map').setView([63.62, 10.13], 13);
+
+    var map = L.map('map').setView([63.48, 10.16], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-
 
 
     var tracks = [[${tracks}]];
@@ -56,42 +66,84 @@
         var xPos = value.x;
         var yPos = value.y;
 
-    var circle=L.circle([xPos, yPos], {
-        color: 'blue',
-        fillColor: 'rgba(255,0,51,0.09)',
-        fillOpacity: 0.5,
-        radius: value.visibilityInKm
-    }).addTo(map);
-    L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
-    L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
-    L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
+
+        var circle = L.circle([xPos, yPos], {
+            color: 'blue',
+            fillColor: 'rgba(255,0,51,0.09)',
+            fillOpacity: 0.5,
+            radius: value.visibilityInKm
+        }).addTo(map);
+
+        L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
+        L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
+        L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
 
 
-    var marker = L.marker([xPos, yPos], {icon: badShipIcon,}).addTo(map)
-        .on('mouseover', () => {
-            marker.bindPopup("<b>Name</b>:" + value.name
-                + "<br> <b>Visibility[km]</b>:" + value.visibilityInKm
-                + "<br> <b>PosX:</b>" + value.x
-                + "<br> <b>PosY:</b>" + value.y
-                + "<br> <b>DestinationX:</b>" + value.destinationX
-                + "<br> <b>DestinationY:</b>" + value.destinationY
-           ).openPopup();
-            polygon = L.polygon([
-                [value.x, value.y],
-                [value.destinationX, value.destinationY],
-            ]).addTo(map);
-        })
-        .on('mouseout', () => {
-            map.removeLayer(polygon);
-        })
+        var marker = L.marker([xPos, yPos], {icon: badShipIcon,}).addTo(map)
 
-        .on('click',()=> {
-            marker.setIcon(friendShipIcon)
-        })
-        .on('dblclick',()=> {
-            marker.setIcon(badShipIcon)
-        })
-    ;
+                .on('mouseover', () => {
+                    marker.bindPopup("<b>Name</b>:" + value.name
+                        + "<br> <b>STATUS</b>:" + value.shipStatus
+                        + "<br> <b>Visibility[km]</b>:" + value.visibilityInKm
+                        + "<br> <b>PosX:</b>" + value.x
+                        + "<br> <b>PosY:</b>" + value.y
+                        + "<br> <b>DestinationX:</b>" + value.destinationX
+                        + "<br> <b>DestinationY:</b>" + value.destinationY
+                    ).openPopup();
+                    polygon = L.polygon([
+                        [value.x, value.y],
+                        [value.destinationX, value.destinationY],
+                    ]).addTo(map);
+                })
+                .on('mouseout', () => {
+                    map.removeLayer(polygon);
+                })
+
+                .on('click', () => {
+                    marker.setIcon(friendShipIcon);
+                    var form_data = new FormData();
+                    form_data.append('y', value.y);
+                    form_data.append('x', value.x);
+                    form_data.append('name', value.name);
+                    form_data.append('shipStatus', 'FRIEND');
+                    form_data.append('destinationY', value.destinationY);
+                    form_data.append('destinationX', value.destinationX);
+                    form_data.append('visibilityInKm', value.visibilityInKm);
+
+                    $.ajax({
+                        url: serverContext + 'update',
+                        data: form_data,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function (data) {
+                            console.log(data)
+                        }
+                    });
+
+                })
+                .on('dblclick', () => {
+                    marker.setIcon(badShipIcon);
+                    var form_data = new FormData();
+                    form_data.append('y', value.y);
+                    form_data.append('x', value.x);
+                    form_data.append('name', value.name);
+                    form_data.append('shipStatus', 'ENEMY');
+                    form_data.append('destinationY', value.destinationY);
+                    form_data.append('destinationX', value.destinationX);
+                    form_data.append('visibilityInKm', value.visibilityInKm);
+
+                    $.ajax({
+                        url: serverContext + 'update',
+                        data: form_data,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function (data) {
+                            console.log(data)
+                        }
+                    });
+                })
 
 
     })
@@ -99,7 +151,16 @@
     L.control.ruler().addTo(map);
     L.control.scale().addTo(map);
 
-</script>
 
+</script>
+<script type="text/javascript"
+        src="webjars/tether/1.4.0/dist/js/tether.min.js"
+        th:src="@{/webjars/tether/1.4.0/dist/js/tether.min.js}"></script>
+<!-- /.container -->
+<script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js"
+        th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+<script type="text/javascript"
+        src="webjars/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js}"></script>
 </body>
 </html>

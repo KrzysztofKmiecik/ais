@@ -1,6 +1,5 @@
 package pl.kmiecik.ais.ship.application.port;
 
-import pl.kmiecik.ais.positionAPI.domain.Datum;
 import pl.kmiecik.ais.ship.domain.Ship;
 import pl.kmiecik.ais.ship.domain.ShipEntity;
 
@@ -9,7 +8,6 @@ import java.util.List;
 public interface ShipService {
     List<Ship> getShips();
 
-    Datum getDestination(String destinationName, List<Double> coordinates);
 
     void saveShip(Ship ship);
 
@@ -17,6 +15,16 @@ public interface ShipService {
         ShipEntity shipEntity = new ShipEntity(ship.getY(), ship.getX(), ship.getName(),ship.getShipStatus(), ship.getDestinationY(), ship.getDestinationX(), ship.getVisibilityInKm());
         return shipEntity;
     }
+    default Ship mapToShip(ShipEntity shipEntity) {
+        Ship ship = new Ship(shipEntity.getY(), shipEntity.getX(), shipEntity.getName(),shipEntity.getShipStatus(), shipEntity.getDestinationY(), shipEntity.getDestinationX(), shipEntity.getVisibilityInKm());
+        return ship;
+    }
+
+    List<Ship> updateShipPosition();
 
     void saveShips(List<Ship> ships);
+
+    void updateShipCoordinates(Ship ship);
+
+    void updateShipStatus(Ship ship);
 }
