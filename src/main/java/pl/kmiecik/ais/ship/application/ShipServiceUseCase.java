@@ -68,18 +68,17 @@ public class ShipServiceUseCase implements ShipService {
             if (!currentShip.isPresent()) {
                 saveShip(ship);
             } else {
-                Long id = currentShip.get().getId();
-                Ship shipToSave = this.mapToShip(currentShip.get());
-                shipToSave.setX(ship.getX());
-                shipToSave.setY(ship.getY());
-                shipToSave.setDestinationX(ship.getDestinationX());
-                shipToSave.setDestinationY(ship.getDestinationY());
-                shipToSave.setVisibilityInKm(ship.getVisibilityInKm());
-                shipRepository.deleteById(id);
-                saveShip(shipToSave);
+                currentShip.get().setX(ship.getX());
+                currentShip.get().setY(ship.getY());
+                currentShip.get().setDestinationX(ship.getDestinationX());
+                currentShip.get().setDestinationY(ship.getDestinationY());
+                currentShip.get().setVisibilityInKm(ship.getVisibilityInKm());
+                shipRepository.save(currentShip.get());
+
             }
         }
     }
+
     @Override
     public void updateShipStatus(Ship ship) {
 
@@ -88,15 +87,13 @@ public class ShipServiceUseCase implements ShipService {
         } else {
 
             Optional<ShipEntity> currentShip = shipRepository.findByName(ship.getName());
+            Long id = currentShip.get().getId();
 
             if (!currentShip.isPresent()) {
                 saveShip(ship);
             } else {
-                Long id = currentShip.get().getId();
-                Ship shipToSave = this.mapToShip(currentShip.get());
-                shipToSave.setShipStatus(ship.getShipStatus());
-                shipRepository.deleteById(id);
-                saveShip(shipToSave);
+                currentShip.get().setShipStatus(ship.getShipStatus());
+                shipRepository.save(currentShip.get());
             }
         }
     }

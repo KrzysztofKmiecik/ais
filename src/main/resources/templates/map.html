@@ -47,6 +47,8 @@
 
 
     var tracks = [[${tracks}]];
+
+
     var badShipIcon = L.icon({
         iconUrl: 'https://img.icons8.com/glyph-neue/2x/viking-ship.png',
         iconSize: [38, 45],
@@ -77,9 +79,14 @@
         L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
         L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
         L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
+        var myIcon;
+        if(value.shipStatus=='FRIEND'){
+            myIcon=friendShipIcon;
+        }else{
+            myIcon=badShipIcon;
+        }
 
-
-        var marker = L.marker([xPos, yPos], {icon: badShipIcon,}).addTo(map)
+        var marker = L.marker([xPos, yPos], {icon: myIcon,}).addTo(map)
 
                 .on('mouseover', () => {
                     marker.bindPopup("<b>Name</b>:" + value.name
@@ -101,6 +108,7 @@
 
                 .on('click', () => {
                     marker.setIcon(friendShipIcon);
+                    value.shipStatus='FRIEND';
                     var form_data = new FormData();
                     form_data.append('y', value.y);
                     form_data.append('x', value.x);
@@ -109,6 +117,7 @@
                     form_data.append('destinationY', value.destinationY);
                     form_data.append('destinationX', value.destinationX);
                     form_data.append('visibilityInKm', value.visibilityInKm);
+
 
                     $.ajax({
                         url: serverContext + 'update',
@@ -124,6 +133,7 @@
                 })
                 .on('dblclick', () => {
                     marker.setIcon(badShipIcon);
+                    value.shipStatus='ENEMY';
                     var form_data = new FormData();
                     form_data.append('y', value.y);
                     form_data.append('x', value.x);
@@ -132,6 +142,7 @@
                     form_data.append('destinationY', value.destinationY);
                     form_data.append('destinationX', value.destinationX);
                     form_data.append('visibilityInKm', value.visibilityInKm);
+
 
                     $.ajax({
                         url: serverContext + 'update',
