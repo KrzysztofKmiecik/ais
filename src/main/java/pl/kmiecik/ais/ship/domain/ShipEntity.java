@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.websocket.OnError;
 
 @Entity
 @Data
@@ -30,7 +31,10 @@ class ShipEntity {
     @Column(name = "visibility_km")
     private int visibilityInKm;
 
-    public ShipEntity(double y, double x, String name, ShipStatus shipStatus, double destinationY, double destinationX, int visibilityInKm) {
+    @OneToOne
+    private PositionCoordinate lastPosition;
+
+    public ShipEntity(double y, double x, String name, ShipStatus shipStatus, double destinationY, double destinationX, int visibilityInKm, PositionCoordinate lastPosition) {
         this.y = y;
         this.x = x;
         this.name = name;
@@ -38,5 +42,6 @@ class ShipEntity {
         this.destinationY = destinationY;
         this.destinationX = destinationX;
         this.visibilityInKm = visibilityInKm;
+        this.lastPosition = lastPosition;
     }
 }

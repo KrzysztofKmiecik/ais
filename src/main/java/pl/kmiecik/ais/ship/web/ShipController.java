@@ -32,19 +32,19 @@ public class ShipController {
     @GetMapping
    /* @Schedules({@Scheduled(fixedDelay = 1000),
             @Scheduled(cron ="0 * * ? * *" )})*/
-    public String getMap(Model model) {
+    public String getMap(Model model) {;
         System.out.println("Pobranie ");
         List<Ship> ships = shipService.updateShipPosition();
         shipService.saveShips(ships);
-        List<Ship> tracks2 = shipService.getShips();
-        PositionCoordinate p1=new PositionCoordinate(10.131, 64.711);
+        List<Ship> tracks = shipService.getShips();
+        /*PositionCoordinate p1=new PositionCoordinate(10.131, 64.711);
         PositionCoordinate p2=new PositionCoordinate(10.132, 64.712);
         PositionCoordinate p3=new PositionCoordinate(10.133, 64.713);
 
         List<Ship2> tracks = new ArrayList<>();
         Ship2 s1 = new Ship2( 10.131, 64.711,"Ola", ShipStatus.FRIEND, 14, 70, 10,p2);
 
-        tracks.add(s1);
+        tracks.add(s1);*/
 
         model.addAttribute("tracks", tracks);
         return "map";

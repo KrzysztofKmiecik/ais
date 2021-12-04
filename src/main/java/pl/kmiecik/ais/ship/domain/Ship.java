@@ -14,6 +14,7 @@ public class Ship {
     private double destinationY;
     private double destinationX;
     private int visibilityInKm;
+    private PositionCoordinate lastPosition;
 
 
 }

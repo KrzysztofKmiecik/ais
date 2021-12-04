@@ -12,11 +12,11 @@ public interface ShipService {
     void saveShip(Ship ship);
 
     default ShipEntity mapToEntity(Ship ship) {
-        ShipEntity shipEntity = new ShipEntity(ship.getY(), ship.getX(), ship.getName(),ship.getShipStatus(), ship.getDestinationY(), ship.getDestinationX(), ship.getVisibilityInKm());
+        ShipEntity shipEntity = new ShipEntity(ship.getY(), ship.getX(), ship.getName(),ship.getShipStatus(), ship.getDestinationY(), ship.getDestinationX(), ship.getVisibilityInKm(),ship.getLastPosition());
         return shipEntity;
     }
     default Ship mapToShip(ShipEntity shipEntity) {
-        Ship ship = new Ship(shipEntity.getY(), shipEntity.getX(), shipEntity.getName(),shipEntity.getShipStatus(), shipEntity.getDestinationY(), shipEntity.getDestinationX(), shipEntity.getVisibilityInKm());
+        Ship ship = new Ship(shipEntity.getY(), shipEntity.getX(), shipEntity.getName(),shipEntity.getShipStatus(), shipEntity.getDestinationY(), shipEntity.getDestinationX(), shipEntity.getVisibilityInKm(),shipEntity.getLastPosition());
         return ship;
     }
 
