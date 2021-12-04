@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.kmiecik.ais.ship.application.port.ShipService;
-import pl.kmiecik.ais.ship.domain.Ship;
+import pl.kmiecik.ais.ship.domain.ShipDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,17 +29,17 @@ public class ShipController {
             @Scheduled(cron ="0 * * ? * *" )})*/
     public String getMap(Model model) {
         System.out.println("Pobranie ");
-        List<Ship> ships = shipService.updateShipPosition();
+        List<ShipDto> ships = shipService.updateShipPosition();
         shipService.saveShips(ships);
-        List<Ship> tracks = shipService.getShips();
+        List<ShipDto> tracks = shipService.getShips();
         model.addAttribute("tracks", tracks);
         return "map";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public String updateShipStatus(final Ship ship, final HttpServletRequest request) {
-        shipService.updateShipStatus(ship);
+    public String updateShipStatus(final ShipDto shipDto, final HttpServletRequest request) {
+        shipService.updateShipStatus(shipDto);
         return "redirect:/map";
     }
 

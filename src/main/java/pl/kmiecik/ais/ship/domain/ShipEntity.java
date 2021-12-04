@@ -1,23 +1,22 @@
 package pl.kmiecik.ais.ship.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "ships")
-public
-class ShipEntity {
+public class ShipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "pos_y")
-    private double y;
-    @Column(name = "pos_x")
-    private double x;
+
     @Column(name = "name")
     private String name;
     @Column(name="ship_status")
@@ -30,13 +29,8 @@ class ShipEntity {
     @Column(name = "visibility_km")
     private int visibilityInKm;
 
-    public ShipEntity(double y, double x, String name, ShipStatus shipStatus, double destinationY, double destinationX, int visibilityInKm) {
-        this.y = y;
-        this.x = x;
-        this.name = name;
-        this.shipStatus = shipStatus;
-        this.destinationY = destinationY;
-        this.destinationX = destinationX;
-        this.visibilityInKm = visibilityInKm;
-    }
+    @OneToMany(mappedBy="shipEntity", cascade=CascadeType.ALL)
+    @JsonManagedReference
+    private List<ShipHistory> positionHistory;
+
 }

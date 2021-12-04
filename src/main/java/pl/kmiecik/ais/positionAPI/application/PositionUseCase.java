@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.kmiecik.ais.positionAPI.domain.Datum;
 import pl.kmiecik.ais.positionAPI.domain.Track;
-import pl.kmiecik.ais.ship.domain.Ship;
+import pl.kmiecik.ais.ship.domain.ShipDto;
+import pl.kmiecik.ais.ship.domain.ShipEntity;
 import pl.kmiecik.ais.ship.domain.ShipStatus;
 import pl.kmiecik.ais.weatherAPI.application.WeatherService;
 
@@ -25,12 +26,12 @@ class PositionUseCase implements pl.kmiecik.ais.positionAPI.application.port.Pos
     private final WeatherService weatherService;
 
     @Override
-    public List<Ship> getPositions() {
+    public List<ShipEntity> getPositions() {
 
         ResponseEntity<Track[]> exchange = getPositionsFromAPI();
 
-        List<Ship> collect = Stream.of(exchange.getBody()).map(
-                track -> new Ship(
+        List<ShipEntity> collect = Stream.of(exchange.getBody()).map(
+                track -> new ShipEntity(
                         track.getGeometry().getCoordinates().get(0),
                         track.getGeometry().getCoordinates().get(1),
                         track.getName(),

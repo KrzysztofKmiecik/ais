@@ -78,9 +78,10 @@
             radius: value.visibilityInKm
         }).addTo(map);
 
-        L.polygon([[xPos + 0.00, yPos + 0.00], [xPos + 0.02, yPos + 0.02],]).addTo(map)
-        L.polygon([[xPos + 0.02, yPos + 0.02], [xPos + 0.04, yPos + 0.05],]).addTo(map)
-        L.polygon([[xPos + 0.04, yPos + 0.05], [xPos + 0.04, yPos + 0.07],]).addTo(map)
+        value.points.forEach(point=>
+            L.polygon([[point.x, point.y], [point.x, point.y],]).addTo(map)
+        )
+
         var myIcon;
         if(value.shipStatus=='FRIEND'){
             myIcon=friendShipIcon;

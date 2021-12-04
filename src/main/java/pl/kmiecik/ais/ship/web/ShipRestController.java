@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kmiecik.ais.ship.application.port.ShipService;
-import pl.kmiecik.ais.ship.domain.Ship;
+import pl.kmiecik.ais.ship.domain.ShipDto;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ class ShipRestController {
     private final ShipService shipService;
 
     @GetMapping
-    public List<Ship> getAllShips() {
+    public List<ShipDto> getAllShips() {
         return shipService.getShips();
     }
 }

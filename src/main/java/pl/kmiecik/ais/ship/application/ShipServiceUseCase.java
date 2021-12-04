@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.kmiecik.ais.positionAPI.application.port.PositionService;
 import pl.kmiecik.ais.ship.application.port.ShipService;
-import pl.kmiecik.ais.ship.domain.Ship;
+import pl.kmiecik.ais.ship.domain.ShipDto;
 import pl.kmiecik.ais.ship.domain.ShipEntity;
-import pl.kmiecik.ais.ship.domain.ShipRepository;
+import pl.kmiecik.ais.ship.domain.ShipHistory;
+import pl.kmiecik.ais.ship.infrastructure.ShipHistoryRepository;
+import pl.kmiecik.ais.ship.infrastructure.ShipRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +19,11 @@ import java.util.stream.Collectors;
 public class ShipServiceUseCase implements ShipService {
 
     private final ShipRepository shipRepository;
+    private final ShipHistoryRepository shipHistoryRepository;
     private final PositionService positionService;
 
     @Override
-    public List<Ship> getShips() {
+    public List<ShipDto> getShips() {
         List<ShipEntity> shipEntityList = shipRepository.findAll();
         return shipEntityList.stream()
                 .map(shipEntity -> this.mapToShip(shipEntity))
@@ -29,14 +32,25 @@ public class ShipServiceUseCase implements ShipService {
 
 
     @Override
-    public void saveShip(Ship ship) {
-        ShipEntity shipEntity = mapToEntity(ship);
+    public void saveShip(ShipDto ship) {
+        ShipEntity shipEntity = new ShipEntity();
+        ShipHistory shipHistory = new ShipHistory();
+        shipEntity.setShipStatus(ship.getShipStatus());
+        shipEntity.setName(ship.getName());
+        shipEntity.setDestinationX(ship.getDestinationX());
+        shipEntity.setDestinationY(ship.getDestinationY());
+
+        shipHistory.setX(ship.getPoints().get(0).getX());
+        shipHistory.setY(ship.getPoints().get(0).getY());
+        shipHistory.setShipEntity(shipEntity);
+
         shipRepository.save(shipEntity);
+        shipHistoryRepository.save(shipHistory);
     }
 
     @Override
-    public List<Ship> updateShipPosition() {
-        List<Ship> newPositions = positionService.getPositions();
+    public List<ShipEntity> updateShipPosition() {
+        List<ShipEntity> newPositions = positionService.getPositions();
 
         return newPositions.stream()
                 .map(ship -> {
@@ -52,12 +66,12 @@ public class ShipServiceUseCase implements ShipService {
 
 
     @Override
-    public void saveShips(List<Ship> ships) {
+    public void saveShips(List<ShipDto> ships) {
         ships.forEach(ship -> updateShipCoordinates(ship));
     }
 
     @Override
-    public void updateShipCoordinates(Ship ship) {
+    public void updateShipCoordinates(ShipDto ship) {
 
         if (ship.getName() == null) {
 
@@ -68,31 +82,35 @@ public class ShipServiceUseCase implements ShipService {
             if (!currentShip.isPresent()) {
                 saveShip(ship);
             } else {
-                currentShip.get().setX(ship.getX());
-                currentShip.get().setY(ship.getY());
+                ShipHistory shipHistory=new ShipHistory();
+
                 currentShip.get().setDestinationX(ship.getDestinationX());
                 currentShip.get().setDestinationY(ship.getDestinationY());
                 currentShip.get().setVisibilityInKm(ship.getVisibilityInKm());
-                shipRepository.save(currentShip.get());
 
+                shipHistory.setShipEntity(currentShip.get());
+                shipHistory.setX(ship.getPoints().get(0).getX());
+                shipHistory.setY(ship.getPoints().get(0).getY());
+                shipRepository.save(currentShip.get());
+                shipHistoryRepository.save(shipHistory);
             }
         }
     }
 
     @Override
-    public void updateShipStatus(Ship ship) {
+    public void updateShipStatus(ShipDto shipDto) {
 
-        if (ship.getName() == null) {
+        if (shipDto.getName() == null) {
 
         } else {
 
-            Optional<ShipEntity> currentShip = shipRepository.findByName(ship.getName());
+            Optional<ShipEntity> currentShip = shipRepository.findByName(shipDto.getName());
             Long id = currentShip.get().getId();
 
             if (!currentShip.isPresent()) {
-                saveShip(ship);
+                saveShip(shipDto);
             } else {
-                currentShip.get().setShipStatus(ship.getShipStatus());
+                currentShip.get().setShipStatus(shipDto.getShipStatus());
                 shipRepository.save(currentShip.get());
             }
         }
