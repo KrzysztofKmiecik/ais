@@ -32,8 +32,7 @@ There is a business need to show ships on map by using AIS system.
 - [ ] email
 - [ ] Locale i18n
 - [ ] Profiles (dev(H2),prod)
-- [ ] Inputs validation (frontend/backend)
-- [ ] Suggestion for inputs (SetOK,SetNOK,FixtureName)
+- [x] Inputs validation
 - [ ] Tests -> ongoing
 - [x] REST API with Swagger UI
 - [x] log history

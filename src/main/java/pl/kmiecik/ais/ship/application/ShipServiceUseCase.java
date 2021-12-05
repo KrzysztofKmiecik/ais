@@ -1,6 +1,7 @@
 package pl.kmiecik.ais.ship.application;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.kmiecik.ais.positionAPI.application.port.PositionService;
 import pl.kmiecik.ais.ship.application.port.ShipService;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ShipServiceUseCase implements ShipService {
 
@@ -31,12 +33,12 @@ public class ShipServiceUseCase implements ShipService {
     public void saveShip(Ship ship) {
         ShipEntity shipEntity = mapToEntity(ship);
         shipRepository.save(shipEntity);
+        log.info("ship was saved");
     }
 
     @Override
     public List<Ship> updateShipPosition() {
-       return   positionService.getPositions();
-
+        return positionService.getPositions();
 
 
     }
@@ -49,7 +51,7 @@ public class ShipServiceUseCase implements ShipService {
 
     @Override
     public void updateShipCoordinates(Ship ship) {
-        PositionCoordinate lastCoordinates=new PositionCoordinate();
+        PositionCoordinate lastCoordinates = new PositionCoordinate();
         if (ship.getName() == null) {
 
         } else {
@@ -58,11 +60,11 @@ public class ShipServiceUseCase implements ShipService {
 
             if (currentShip.isPresent()) {
                 Optional<PositionCoordinate> positionCoordinateRepositoryById = positionCoordinateRepository.findById(currentShip.get().getId());
-                if(positionCoordinateRepositoryById.isPresent()){
+                if (positionCoordinateRepositoryById.isPresent()) {
                     positionCoordinateRepositoryById.get().setY(currentShip.get().getY());
                     positionCoordinateRepositoryById.get().setX(currentShip.get().getX());
                     positionCoordinateRepository.save(positionCoordinateRepositoryById.get());
-                }else {
+                } else {
                     lastCoordinates.setY(currentShip.get().getY());
                     lastCoordinates.setX(currentShip.get().getX());
                     positionCoordinateRepository.save(lastCoordinates);
@@ -75,11 +77,11 @@ public class ShipServiceUseCase implements ShipService {
                 currentShip.get().setVisibilityInKm(ship.getVisibilityInKm());
 
                 shipRepository.save(currentShip.get());
-        }else{
+            } else {
 
                 lastCoordinates.setY(ship.getY());
                 lastCoordinates.setX(ship.getX());
-                ShipEntity shipEntity=new ShipEntity(ship.getY(), ship.getX(), ship.getName(), ship.getShipStatus(),ship.getDestinationY(),ship.getDestinationX(),ship.getVisibilityInKm(),lastCoordinates);
+                ShipEntity shipEntity = new ShipEntity(ship.getY(), ship.getX(), ship.getName(), ship.getShipStatus(), ship.getDestinationY(), ship.getDestinationX(), ship.getVisibilityInKm(), lastCoordinates);
                 positionCoordinateRepository.save(lastCoordinates);
                 shipRepository.save(shipEntity);
             }
@@ -90,7 +92,7 @@ public class ShipServiceUseCase implements ShipService {
     public void updateShipStatus(Ship ship) {
 
         if (ship.getName() == null) {
-
+            log.warn("ship with null name");
         } else {
 
             Optional<ShipEntity> currentShip = shipRepository.findByName(ship.getName());
@@ -101,7 +103,19 @@ public class ShipServiceUseCase implements ShipService {
             } else {
                 currentShip.get().setShipStatus(ship.getShipStatus());
                 shipRepository.save(currentShip.get());
+                log.info("status was change");
             }
         }
+    }
+
+    @Override
+    public Optional<ShipEntity> getByName(String name) {
+        return shipRepository.findByName(name);
+
+    }
+
+    @Override
+    public void sendEmail(Ship ship) {
+
     }
 }

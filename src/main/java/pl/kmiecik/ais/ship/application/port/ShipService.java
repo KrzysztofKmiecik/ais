@@ -4,6 +4,7 @@ import pl.kmiecik.ais.ship.domain.Ship;
 import pl.kmiecik.ais.ship.domain.ShipEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ShipService {
     List<Ship> getShips();
@@ -27,4 +28,8 @@ public interface ShipService {
     void updateShipCoordinates(Ship ship);
 
     void updateShipStatus(Ship ship);
+
+    Optional<ShipEntity> getByName(String name);
+
+    void sendEmail(Ship ship);
 }
