@@ -22,11 +22,14 @@ public class GmailUseCase implements EmailService {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
+    @Value("${spring.mail.sendTo}")
+    private String toEmail;
+
     @Override
-    public void sendSimpleMessage(final String to, final String subject, final String text) {
+    public void sendSimpleMessage( final String subject, final String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
-        message.setTo(to);
+        message.setTo(toEmail);
         message.setSubject(subject);
         message.setText(text);
         emailSender.send(message);

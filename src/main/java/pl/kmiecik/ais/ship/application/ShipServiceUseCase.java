@@ -2,6 +2,7 @@ package pl.kmiecik.ais.ship.application;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.kmiecik.ais.Config.CustomProperties;
 import pl.kmiecik.ais.email.application.port.EmailService;
@@ -23,7 +24,8 @@ public class ShipServiceUseCase implements ShipService {
     private final PositionCoordinateRepository positionCoordinateRepository;
     private final EmailService emailService;
     private final CustomProperties customProperties;
-    private String[] emailToArray;
+
+@Value("${}")
 
     @Override
     public List<Ship> getShips() {
@@ -123,7 +125,7 @@ public class ShipServiceUseCase implements ShipService {
     public void sendEmail(Ship ship) {
         if (ship != null) {
             String message = String.format("Ship %s was updated ", ship.getName());
-            emailService.sendSimpleMessage("krzysztof_kmiecik@wp.pl", "test", message);
+            emailService.sendSimpleMessage("AIS", message);
         }
     }
 }

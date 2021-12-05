@@ -21,7 +21,7 @@ There is a business need to show ships on map by using AIS system.
 
 ![](src/main/resources/static.photos/screenshots/aisMap.png)
 
-### OpenPoints
+### DONE
 - [x] AIS
 - [x] ruler for distance calculation  (plugin was added)
 - [x] map's scale is presented in left-bottom corner (plugin was added)
@@ -29,7 +29,7 @@ There is a business need to show ships on map by using AIS system.
 - [x] circle around corresponds to weather visibility
 - [x] direction and speed  of movement is presented by the polygon
 - [ ] Security -> CAPTAIN, SAILOR
-- [ ] email
+- [x] email  -> "Ship MUNKEN was updated"
 - [ ] Locale i18n
 - [x] Profiles (dev,prod)
 - [x] Inputs validation
