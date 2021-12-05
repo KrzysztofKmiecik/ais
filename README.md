@@ -1,6 +1,6 @@
 # AIS
 
-## Bussines requirements
+## Business requirements
 There is a business need to show ships on map by using AIS system.
 ![](src/main/resources/static.photos/screenshots/viking.jpeg)
 
