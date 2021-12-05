@@ -19,6 +19,7 @@ There is a business need to show ships on map by using AIS system.
 
 # Solution
 
+![](src/main/resources/static.photos/screenshots/aisMap.png)
 
 ### OpenPoints
 - [x] AIS
@@ -30,9 +31,9 @@ There is a business need to show ships on map by using AIS system.
 - [ ] Security -> CAPTAIN, SAILOR
 - [ ] email
 - [ ] Locale i18n
-- [x] Profiles (dev(H2),prod)
-- [x] Inputs validation (frontend/backend)
-- [x] Suggestion for inputs (SetOK,SetNOK,FixtureName)
+- [ ] Profiles (dev(H2),prod)
+- [ ] Inputs validation (frontend/backend)
+- [ ] Suggestion for inputs (SetOK,SetNOK,FixtureName)
 - [ ] Tests -> ongoing
 - [x] REST API with Swagger UI
 - [x] log history
@@ -53,11 +54,11 @@ There is a business need to show ships on map by using AIS system.
 
 
 ### links
-- app    -> http://eoltserverprod:8090/fixtures
-- API    -> http://eoltserverprod:8090/swagger-ui.html
-- metrics-> http://eoltserverprod:8090/actuator
-- prometheus -> http://eoltserverprod:9090
-- http://eoltserverprod:3000 -> grafana (login:admin pass:admin) ; url http://prometheus:9090; import jvm Micrometer ID 4701
+- app    -> http://localhost:8080
+- API    -> http://localhost:8080/swagger-ui.html
+- metrics-> http://localhost:8080/actuator
+- prometheus -> http://localhost:9090
+- http://localhost:3000 -> grafana (login:admin pass:admin) ; url http://prometheus:9090; import jvm Micrometer ID 4701
 
 
 
