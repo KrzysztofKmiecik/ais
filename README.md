@@ -31,13 +31,13 @@ There is a business need to show ships on map by using AIS system.
 - [ ] Security -> CAPTAIN, SAILOR
 - [ ] email
 - [ ] Locale i18n
-- [ ] Profiles (dev(H2),prod)
+- [x] Profiles (dev,prod)
 - [x] Inputs validation
 - [ ] Tests -> ongoing
 - [x] REST API with Swagger UI
 - [x] log history
 - [x] healthChecks metrics, prometheus, Grafana
-- [x] Docker
+- [x] Docker-compose 
 
 
 ### Used Technologies

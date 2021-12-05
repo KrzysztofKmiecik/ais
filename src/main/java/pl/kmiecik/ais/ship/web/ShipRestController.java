@@ -1,8 +1,8 @@
 package pl.kmiecik.ais.ship.web;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +12,24 @@ import pl.kmiecik.ais.ship.domain.Ship;
 import pl.kmiecik.ais.ship.domain.ShipStatus;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/ships")
-@AllArgsConstructor
 class ShipRestController {
     private final ShipService shipService;
 
-  /*  @Value("${spring.profiles.active}")
-    private String activeProfile;*/
+    @Autowired
+    public ShipRestController(ShipService shipService) {
+        this.shipService = shipService;
+    }
+
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
 
     @GetMapping
     public List<Ship> getAllShips() {
