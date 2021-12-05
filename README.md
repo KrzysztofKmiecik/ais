@@ -52,7 +52,12 @@ There is a business need to show ships on map by using AIS system.
 ## Info
 
 
-
+### links
+- app    -> http://eoltserverprod:8090/fixtures
+- API    -> http://eoltserverprod:8090/swagger-ui.html
+- metrics-> http://eoltserverprod:8090/actuator
+- prometheus -> http://eoltserverprod:9090
+- http://eoltserverprod:3000 -> grafana (login:admin pass:admin) ; url http://prometheus:9090; import jvm Micrometer ID 4701
 
 
 
