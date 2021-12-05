@@ -29,7 +29,7 @@ There is a business need to show ships on map by using AIS system.
 - [x] circle around corresponds to weather visibility
 - [x] direction and speed  of movement is presented by the polygon
 - [ ] Security -> CAPTAIN, SAILOR
-- [x] email  -> "Ship MUNKEN was updated"
+- [x] email  -> e.g "Ship MUNKEN was updated"
 - [ ] Locale i18n
 - [x] Profiles (dev,prod)
 - [x] Inputs validation
