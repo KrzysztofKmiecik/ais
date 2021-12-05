@@ -31,7 +31,7 @@ There is a business need to show ships on map by using AIS system.
 - [x] email  -> "Ship MUNKEN was updated"
 - [x] Profiles (dev,prod)
 - [x] Inputs validation
-- [ ] Tests -> ongoing
+- [x] unit Test
 - [x] REST API with Swagger UI
 - [x] log history
 - [x] healthChecks metrics, prometheus, Grafana
@@ -40,7 +40,9 @@ There is a business need to show ships on map by using AIS system.
 ### TO DO
 - [ ] Security -> CAPTAIN, SAILOR]
 - [ ] Locale i18n
-- 
+- [ ] unit Tests -> ongoing
+- [ ] integration test
+
 ### Used Technologies
 - SpringBoot (Spring Data, Spring Security)
 - Postgres

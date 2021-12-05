@@ -23,9 +23,9 @@ public class ShipServiceUseCase implements ShipService {
     private final PositionService positionService;
     private final PositionCoordinateRepository positionCoordinateRepository;
     private final EmailService emailService;
-    private final CustomProperties customProperties;
 
-@Value("${}")
+
+
 
     @Override
     public List<Ship> getShips() {
