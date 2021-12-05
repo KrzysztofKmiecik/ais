@@ -26,11 +26,9 @@ There is a business need to show ships on map by using AIS system.
 - [x] ruler for distance calculation  (plugin was added)
 - [x] map's scale is presented in left-bottom corner (plugin was added)
 - [x] ship's status change (icon and info are changed)-> FRIEND(click),ENEMY(dbclick)
-- [x] circle around corresponds to weather visibility
+- [x] circle around corresponds to weather visibility (due to the limits(50requests/day) from stormAPI the random  values were generated )
 - [x] direction and speed  of movement is presented by the polygon
-- [ ] Security -> CAPTAIN, SAILOR
 - [x] email  -> "Ship MUNKEN was updated"
-- [ ] Locale i18n
 - [x] Profiles (dev,prod)
 - [x] Inputs validation
 - [ ] Tests -> ongoing
@@ -39,7 +37,10 @@ There is a business need to show ships on map by using AIS system.
 - [x] healthChecks metrics, prometheus, Grafana
 - [x] Docker-compose 
 
-
+### TO DO
+- [ ] Security -> CAPTAIN, SAILOR]
+- [ ] Locale i18n
+- 
 ### Used Technologies
 - SpringBoot (Spring Data, Spring Security)
 - Postgres
@@ -89,7 +90,9 @@ Pracę konkursową prześlij w następującym formularzu do 5 grudnia 2021 do go
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/BB61_USS_Iowa_BB61_broadside_USN.jpg/1024px-BB61_USS_Iowa_BB61_broadside_USN.jpg)
 
-4. Zadanie konkursowe:
+4
+
+. Zadanie konkursowe:
 
 Wykorzystując dane pobierane z AIS utwórz aplikację, która będzie wyświetlała informacje na temat jednostek morskich na mapie.
 
@@ -110,8 +113,6 @@ Możesz w pełni wykorzystać kod źródłowy opracowany w trakcie LiveStrema w 
 * Do pobierania informacji na temat lokalizacji statów:
 * * https://www.barentswatch.no/en/about/open-data-via-barentswatch/
 * * https://www.barentswatch.no/minside/
-
-
 
 
 
