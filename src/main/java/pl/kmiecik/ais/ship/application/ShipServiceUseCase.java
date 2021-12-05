@@ -3,6 +3,8 @@ package pl.kmiecik.ais.ship.application;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.kmiecik.ais.Config.CustomProperties;
+import pl.kmiecik.ais.email.application.port.EmailService;
 import pl.kmiecik.ais.positionAPI.application.port.PositionService;
 import pl.kmiecik.ais.ship.application.port.ShipService;
 import pl.kmiecik.ais.ship.domain.*;
@@ -19,6 +21,9 @@ public class ShipServiceUseCase implements ShipService {
     private final ShipRepository shipRepository;
     private final PositionService positionService;
     private final PositionCoordinateRepository positionCoordinateRepository;
+    private final EmailService emailService;
+    private final CustomProperties customProperties;
+    private String[] emailToArray;
 
     @Override
     public List<Ship> getShips() {
@@ -116,6 +121,9 @@ public class ShipServiceUseCase implements ShipService {
 
     @Override
     public void sendEmail(Ship ship) {
-
+        if (ship != null) {
+            String message = String.format("Ship %s was updated ", ship.getName());
+            emailService.sendSimpleMessage("krzysztof_kmiecik@wp.pl", "test", message);
+        }
     }
 }

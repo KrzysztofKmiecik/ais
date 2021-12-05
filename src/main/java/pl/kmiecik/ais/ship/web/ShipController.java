@@ -1,6 +1,7 @@
 package pl.kmiecik.ais.ship.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,10 @@ import java.util.List;
 public class ShipController {
 
     private final ShipService shipService;
+
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
+
 
     /**
      * https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm
@@ -54,8 +59,7 @@ public class ShipController {
     @ResponseBody
     public String updateShipStatus(final Ship ship, final HttpServletRequest request) {
         shipService.updateShipStatus(ship);
+        if (activeProfile.equals("prod"))  shipService.sendEmail(ship);
         return "redirect:/map";
     }
-
-
 }

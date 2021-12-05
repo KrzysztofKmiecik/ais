@@ -2,6 +2,7 @@ package pl.kmiecik.ais.ship.web;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,13 +21,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/ships")
+@RequiredArgsConstructor
 class ShipRestController {
     private final ShipService shipService;
-
-    @Autowired
-    public ShipRestController(ShipService shipService) {
-        this.shipService = shipService;
-    }
 
     @Value("${spring.profiles.active}")
     private String activeProfile;
@@ -63,7 +60,7 @@ class ShipRestController {
     public void setFriendStatus(@Valid @RequestBody RestShipCommand command) {
         Ship ship = command.toShip();
         shipService.updateShipStatus(ship);
-        //    if (activeProfile.equals("prod")) shipService.sendEmail(ship);
+        if (activeProfile.equals("prod")) shipService.sendEmail(ship);
     }
 
     @Data
