@@ -34,10 +34,10 @@ There is a business need to show ships on map by using AIS system.
 - [x] Inputs validation (frontend/backend)
 - [x] Suggestion for inputs (SetOK,SetNOK,FixtureName)
 - [ ] Tests -> ongoing
-- [ ] REST API with Swagger UI
+- [x] REST API with Swagger UI
 - [x] log history
-- [ ] healthChecks metrics, prometheus, Grafana
-- [ ] Docker
+- [x] healthChecks metrics, prometheus, Grafana
+- [x] Docker
 
 
 ### Used Technologies

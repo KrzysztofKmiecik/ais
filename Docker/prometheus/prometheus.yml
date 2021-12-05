@@ -1,0 +1,26 @@
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'holistech'
+    metrics_path: /actuator/prometheus
+
+    static_configs:
+      - targets:
+          # IP in MacOS : ifconfig | grep "inet" | grep -v 127.0.0.1
+          # ifconfig |grep "inet" | grep -v 127.0.0.1
+          #	inet6 ::1 prefixlen 128
+          #	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
+          #	inet6 fe80::88a:f5f7:325c:60bf%en0 prefixlen 64 secured scopeid 0x4
+          #	inet 192.168.1.248 netmask 0xffffff00 broadcast 192.168.1.255
+          #	inet6 fe80::aede:48ff:fe00:1122%en6 prefixlen 64 scopeid 0x5
+          #	inet6 fe80::836:30a0:2a1:30cc%en1 prefixlen 64 secured scopeid 0x7
+          #	inet 192.168.1.179 netmask 0xffffff00 broadcast 192.168.1.255
+
+          # port 8090 -> web app container port
+          # macOS '192.168.1.248:8090'
+          # PC eoltserwer :'192.168.56.1:8090'
+          # PC eoltserverprod '10.235.244.57:8090'
+        - '192.168.1.248:8080'
