@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.websocket.OnError;
 
 @Entity
 @Data
@@ -21,7 +20,7 @@ class ShipEntity {
     private double x;
     @Column(name = "name")
     private String name;
-    @Column(name="ship_status")
+    @Column(name = "ship_status")
     @Enumerated(value = EnumType.STRING)
     private ShipStatus shipStatus;
     @Column(name = "destination_pos_x")

@@ -1,7 +1,6 @@
 package pl.kmiecik.ais.email.application;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,7 +25,7 @@ public class GmailUseCase implements EmailService {
     private String toEmail;
 
     @Override
-    public void sendSimpleMessage( final String subject, final String text) {
+    public void sendSimpleMessage(final String subject, final String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
         message.setTo(toEmail);

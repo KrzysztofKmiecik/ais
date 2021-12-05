@@ -2,9 +2,7 @@ package pl.kmiecik.ais.ship.application;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import pl.kmiecik.ais.Config.CustomProperties;
 import pl.kmiecik.ais.email.application.port.EmailService;
 import pl.kmiecik.ais.positionAPI.application.port.PositionService;
 import pl.kmiecik.ais.ship.application.port.ShipService;
@@ -23,8 +21,6 @@ public class ShipServiceUseCase implements ShipService {
     private final PositionService positionService;
     private final PositionCoordinateRepository positionCoordinateRepository;
     private final EmailService emailService;
-
-
 
 
     @Override

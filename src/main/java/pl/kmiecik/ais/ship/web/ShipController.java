@@ -9,14 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.kmiecik.ais.ship.application.port.ShipService;
-import pl.kmiecik.ais.ship.domain.PositionCoordinate;
 import pl.kmiecik.ais.ship.domain.Ship;
-import pl.kmiecik.ais.ship.domain.Ship2;
-import pl.kmiecik.ais.ship.domain.ShipStatus;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -37,7 +32,8 @@ public class ShipController {
     @GetMapping
    /* @Schedules({@Scheduled(fixedDelay = 1000),
             @Scheduled(cron ="0 * * ? * *" )})*/
-    public String getMap(Model model) {;
+    public String getMap(Model model) {
+        ;
         System.out.println("Pobranie ");
         List<Ship> ships = shipService.updateShipPosition();
         shipService.saveShips(ships);
@@ -59,7 +55,7 @@ public class ShipController {
     @ResponseBody
     public String updateShipStatus(final Ship ship, final HttpServletRequest request) {
         shipService.updateShipStatus(ship);
-        if (activeProfile.equals("prod"))  shipService.sendEmail(ship);
+        if (activeProfile.equals("prod")) shipService.sendEmail(ship);
         return "redirect:/map";
     }
 }

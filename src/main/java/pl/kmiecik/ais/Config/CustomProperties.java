@@ -13,4 +13,6 @@ public class CustomProperties {
     String emailsender;
     String emailpassword;
     String[] emailreceiver;
+    String positionapikey;
+    String weatherapikey;
 }

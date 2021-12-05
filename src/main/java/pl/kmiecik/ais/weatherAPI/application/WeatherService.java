@@ -1,25 +1,35 @@
 package pl.kmiecik.ais.weatherAPI.application;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.kmiecik.ais.Config.CustomProperties;
 import pl.kmiecik.ais.weatherAPI.domain.Example;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
+@EnableConfigurationProperties(CustomProperties.class)
 public class WeatherService {
 
+
+    @Autowired
+    private final CustomProperties customProperties;
+
+    public WeatherService(CustomProperties customProperties) {
+        this.customProperties = customProperties;
+    }
+
     RestTemplate restTemplate = new RestTemplate();
-
-
     private final static String WEATHER_URL = "https://api.stormglass.io/v2/weather/point?";
-    private final static String API = "fdc51ec6-5078-11ec-962b-0242ac130002-fdc51f66-5078-11ec-962b-0242ac130002";
+
 
 
     public Double getVisibility(final Double lat, final Double lon) {
@@ -28,18 +38,18 @@ public class WeatherService {
             visibility = null;
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Authorization",
-                    "fdc51ec6-5078-11ec-962b-0242ac130002-fdc51f66-5078-11ec-962b-0242ac130002");
+                    customProperties.getWeatherapikey());
             HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
-            ResponseEntity<Example> exchange = restTemplate.exchange("https://api.stormglass.io/v2/weather/point?lat=" + lat + "&lng=" + lon + "&params=visibility",
+            ResponseEntity<Example> exchange = restTemplate.exchange(WEATHER_URL + "?lat=" + lat + "&lng=" + lon + "&params=visibility",
                     HttpMethod.GET,
                     httpEntity,
                     Example.class);
-            visibility=exchange.getBody().getHours().get(0).getVisibility().getNoaa();
+            visibility = exchange.getBody().getHours().get(0).getVisibility().getNoaa();
         } else {
-            double min=0.01;
-            double max=50.03;
-            visibility=min+Math.random()*(max-min+1);
+            double min = 0.01;
+            double max = 50.03;
+            visibility = min + Math.random() * (max - min + 1);
         }
         return visibility;
     }

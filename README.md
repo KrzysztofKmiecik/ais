@@ -5,24 +5,26 @@ There is a business need to show ships on map by using AIS system.
 ![](src/main/resources/static.photos/screenshots/viking.jpeg)
 
 ## Project requirements
-- [x] as a user with role TESTER/QUALITY/USER  I would like to log in to be able to block fixture in FIS
-- [x] as a user with role TESTER/QUALITY/USER I would like to have recorded fixture status change or name  in history log and email
-- [x] as a user with role TESTER/QUALITY/USER  I would like to see history log
-- [x] as a user with role TESTER/QUALITY/USER  I would like to see fixture status
-- [x] as a user with role TESTER/QUALITY/USER I would like to log in to be able to see status of fixture
-- [x] as a user with role TESTER/QUALITY/USER I would like to have possibilities to choose languages Polski|English|Deutsch|Pyсский
-- [x] as a user with role TESTER/QUALITY/USER I would like to use API for this
-- [x] as a user with role TESTER/QUALITY/USER I would like to have
-- [x] as a user with role TESTER  I would like to login to be able as the only one to create new fixture (name and Type(ICT,SMT_MOL))
-- [x] as a user with role QUALITY I would like to login to be able as the only one to unlock fixture in FIS
+- [x] as a user I would like to see ships to locate them
+- [x] as a user I would like to know direction and speed  of ships
+- [x] as a user I would like to have possibility to mark ship as FRIEND or ENEMY 
+- [x] as a user I would like to see the scale of the map 
+- [x] as a user I would like to have possibility to measure a distance between severals points on the map 
+- [x] as a user I would like to have stable application  thats why I need to monitor my application 
+- [x] as a user I would like to get email when status FRIEND <-> ENEMY will be changed
+- [x] as a user I would like to have possibility to use REST API to be able to connect via Postman or external app
 
 
 # Solution
 
 ![](src/main/resources/static.photos/screenshots/aisMap.png)
+![](src/main/resources/static.photos/screenshots/ais_grafana.png)
+![](src/main/resources/static.photos/screenshots/ais_swagger.png)
+![](src/main/resources/static.photos/screenshots/ais_docker.png)
 
 ### DONE
 - [x] AIS
+- [x] refresh site in cycle 65sec 
 - [x] ruler for distance calculation  (plugin was added)
 - [x] map's scale is presented in left-bottom corner (plugin was added)
 - [x] ship's status change (icon and info are changed)-> FRIEND(click),ENEMY(dbclick)
@@ -38,14 +40,15 @@ There is a business need to show ships on map by using AIS system.
 - [x] Docker-compose 
 
 ### TO DO
-- [ ] Security -> CAPTAIN, SAILOR]
+- [ ] Security -> CAPTAIN, SAILOR
 - [ ] Locale i18n
 - [ ] unit Tests -> ongoing
 - [ ] integration test
 
 ### Used Technologies
-- SpringBoot (Spring Data, Spring Security)
+- SpringBoot
 - Postgres
+- LeafLet
 - Docker
 - Thymeleaf with Bootstrap
 - Swagger UI
@@ -64,24 +67,6 @@ There is a business need to show ships on map by using AIS system.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Reference Documentation
 
 Tytuł projektu, oraz czemu służy Twoje rozwiązanie
@@ -89,8 +74,6 @@ Jak uruchomić Twoją aplikację
 Screeny i/lub film prezentujący Twoją rozwiązanie w działaniu
 
 Pracę konkursową prześlij w następującym formularzu do 5 grudnia 2021 do godziny 23:59: https://forms.gle/VCqeLHL4mF6UrECP9
-
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/BB61_USS_Iowa_BB61_broadside_USN.jpg/1024px-BB61_USS_Iowa_BB61_broadside_USN.jpg)
 
 4
 
@@ -118,28 +101,5 @@ Możesz w pełni wykorzystać kod źródłowy opracowany w trakcie LiveStrema w 
 
 
 
-
-
-
-Marker rotation -> needs to have  -> npm install leaflet-marker-rotation
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.6.0/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.6.0/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.6.0/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Thymeleaf](https://docs.spring.io/spring-boot/docs/2.6.0/reference/htmlsingle/#boot-features-spring-mvc-template-engines)
-* [JDBC API](https://docs.spring.io/spring-boot/docs/2.6.0/reference/htmlsingle/#boot-features-sql)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Handling Form Submission](https://spring.io/guides/gs/handling-form-submission/)
-* [Accessing Relational Data using JDBC with Spring](https://spring.io/guides/gs/relational-data-access/)
-* [Managing Transactions](https://spring.io/guides/gs/managing-transactions/)
 
   

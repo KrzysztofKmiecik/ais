@@ -1,8 +1,10 @@
 package pl.kmiecik.ais.ship.application.port;
 
+import lombok.Value;
 import pl.kmiecik.ais.ship.domain.Ship;
 import pl.kmiecik.ais.ship.domain.ShipEntity;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,4 +34,13 @@ public interface ShipService {
     Optional<ShipEntity> getByName(String name);
 
     void sendEmail(Ship ship);
+
+    @Value
+    class UpdateShipResponse {
+
+        public static final UpdateShipResponse SUCCESS = new UpdateShipResponse(true, Collections.emptyList());
+
+        boolean success;
+        List<String> errors;
+    }
 }
