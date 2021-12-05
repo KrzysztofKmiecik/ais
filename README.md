@@ -1,5 +1,79 @@
 # AIS
 
+## Bussines requirements
+There is a business need to show ships on map by using AIS system.
+![](src/main/resources/static.photos/screenshots/viking.jpeg)
+
+## Project requirements
+- [x] as a user with role TESTER/QUALITY/USER  I would like to log in to be able to block fixture in FIS
+- [x] as a user with role TESTER/QUALITY/USER I would like to have recorded fixture status change or name  in history log and email
+- [x] as a user with role TESTER/QUALITY/USER  I would like to see history log
+- [x] as a user with role TESTER/QUALITY/USER  I would like to see fixture status
+- [x] as a user with role TESTER/QUALITY/USER I would like to log in to be able to see status of fixture
+- [x] as a user with role TESTER/QUALITY/USER I would like to have possibilities to choose languages Polski|English|Deutsch|Pyсский
+- [x] as a user with role TESTER/QUALITY/USER I would like to use API for this
+- [x] as a user with role TESTER/QUALITY/USER I would like to have
+- [x] as a user with role TESTER  I would like to login to be able as the only one to create new fixture (name and Type(ICT,SMT_MOL))
+- [x] as a user with role QUALITY I would like to login to be able as the only one to unlock fixture in FIS
+
+
+# Solution
+
+
+### OpenPoints
+- [x] AIS
+- [x] ruler for distance calculation  (plugin was added)
+- [x] map's scale is presented in left-bottom corner (plugin was added)
+- [x] ship's status change (icon and info are changed)-> FRIEND(click),ENEMY(dbclick)
+- [x] circle around corresponds to weather visibility
+- [x] direction and speed  of movement is presented by the polygon
+- [ ] Security -> CAPTAIN, SAILOR
+- [ ] email
+- [ ] Locale i18n
+- [x] Profiles (dev(H2),prod)
+- [x] Inputs validation (frontend/backend)
+- [x] Suggestion for inputs (SetOK,SetNOK,FixtureName)
+- [ ] Tests -> ongoing
+- [ ] REST API with Swagger UI
+- [x] log history
+- [ ] healthChecks metrics, prometheus, Grafana
+- [ ] Docker
+
+
+### Used Technologies
+- SpringBoot (Spring Data, Spring Security)
+- Postgres
+- Docker
+- Thymeleaf with Bootstrap
+- Swagger UI
+- Grafana
+- Docker-Compose
+
+## Info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Reference Documentation
 
 Tytuł projektu, oraz czemu służy Twoje rozwiązanie
@@ -31,6 +105,12 @@ Możesz w pełni wykorzystać kod źródłowy opracowany w trakcie LiveStrema w 
 * Do pobierania informacji na temat lokalizacji statów:
 * * https://www.barentswatch.no/en/about/open-data-via-barentswatch/
 * * https://www.barentswatch.no/minside/
+
+
+
+
+
+
 
 
 Marker rotation -> needs to have  -> npm install leaflet-marker-rotation
